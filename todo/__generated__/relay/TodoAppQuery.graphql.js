@@ -1,6 +1,6 @@
 /**
- * @generated SignedSource<<1eb563a36ecae92cf484e8b1db6af4df>>
- * @relayHash 8a75762b2e92a08aeb1007fc11f71298
+ * @generated SignedSource<<1313c06670e5439592f51142bd7ccf9a>>
+ * @relayHash 85b55396fb97187f9eeb6b8511ad5de7
  * @flow
  * @lightSyntaxTransform
  * @nogrep
@@ -10,16 +10,25 @@
 
 'use strict';
 
-// @relayRequestID 8a75762b2e92a08aeb1007fc11f71298
+// @relayRequestID 85b55396fb97187f9eeb6b8511ad5de7
 
 /*::
 import type { ConcreteRequest, Query } from 'relay-runtime';
+import type { TodoList_todos$fragmentType } from "./TodoList_todos.graphql";
 import type { TodoList_user$fragmentType } from "./TodoList_user.graphql";
 export type TodoAppQuery$variables = {|
   userId?: ?string,
 |};
 export type TodoAppQuery$data = {|
   +user: {|
+    +todos: ?{|
+      +edges: ?$ReadOnlyArray<?{|
+        +node: ?{|
+          +id: string,
+        |},
+      |}>,
+      +$fragmentSpreads: TodoList_todos$fragmentType,
+    |},
     +$fragmentSpreads: TodoList_user$fragmentType,
   |},
 |};
@@ -44,20 +53,59 @@ v1 = [
     "variableName": "userId"
   }
 ],
-v2 = [
-  {
-    "kind": "Literal",
-    "name": "first",
-    "value": 2147483647
-  }
-],
-v3 = {
+v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "id",
   "storageKey": null
-};
+},
+v3 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "__typename",
+  "storageKey": null
+},
+v4 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "cursor",
+  "storageKey": null
+},
+v5 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "PageInfo",
+  "kind": "LinkedField",
+  "name": "pageInfo",
+  "plural": false,
+  "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "endCursor",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "hasNextPage",
+      "storageKey": null
+    }
+  ],
+  "storageKey": null
+},
+v6 = [
+  {
+    "kind": "Literal",
+    "name": "first",
+    "value": 2147483647
+  }
+];
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
@@ -75,6 +123,48 @@ return {
           "name": "user",
           "plural": false,
           "selections": [
+            {
+              "alias": "todos",
+              "args": null,
+              "concreteType": "TodoConnection",
+              "kind": "LinkedField",
+              "name": "__TodoApp_todos_connection",
+              "plural": false,
+              "selections": [
+                {
+                  "alias": null,
+                  "args": null,
+                  "concreteType": "TodoEdge",
+                  "kind": "LinkedField",
+                  "name": "edges",
+                  "plural": true,
+                  "selections": [
+                    {
+                      "alias": null,
+                      "args": null,
+                      "concreteType": "Todo",
+                      "kind": "LinkedField",
+                      "name": "node",
+                      "plural": false,
+                      "selections": [
+                        (v2/*: any*/),
+                        (v3/*: any*/)
+                      ],
+                      "storageKey": null
+                    },
+                    (v4/*: any*/)
+                  ],
+                  "storageKey": null
+                },
+                {
+                  "args": null,
+                  "kind": "FragmentSpread",
+                  "name": "TodoList_todos"
+                },
+                (v5/*: any*/)
+              ],
+              "storageKey": null
+            },
             {
               "args": null,
               "kind": "FragmentSpread",
@@ -106,7 +196,7 @@ return {
         "selections": [
           {
             "alias": null,
-            "args": (v2/*: any*/),
+            "args": (v6/*: any*/),
             "concreteType": "TodoConnection",
             "kind": "LinkedField",
             "name": "todos",
@@ -128,6 +218,7 @@ return {
                     "name": "node",
                     "plural": false,
                     "selections": [
+                      (v2/*: any*/),
                       (v3/*: any*/),
                       {
                         "alias": null,
@@ -142,24 +233,11 @@ return {
                         "kind": "ScalarField",
                         "name": "text",
                         "storageKey": null
-                      },
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "__typename",
-                        "storageKey": null
                       }
                     ],
                     "storageKey": null
                   },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "cursor",
-                    "storageKey": null
-                  }
+                  (v4/*: any*/)
                 ],
                 "storageKey": null
               },
@@ -175,40 +253,16 @@ return {
                   }
                 ]
               },
-              {
-                "alias": null,
-                "args": null,
-                "concreteType": "PageInfo",
-                "kind": "LinkedField",
-                "name": "pageInfo",
-                "plural": false,
-                "selections": [
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "endCursor",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "hasNextPage",
-                    "storageKey": null
-                  }
-                ],
-                "storageKey": null
-              }
+              (v5/*: any*/)
             ],
             "storageKey": "todos(first:2147483647)"
           },
           {
             "alias": null,
-            "args": (v2/*: any*/),
+            "args": (v6/*: any*/),
             "filters": null,
             "handle": "connection",
-            "key": "TodoList_todos",
+            "key": "TodoApp_todos",
             "kind": "LinkedHandle",
             "name": "todos"
           },
@@ -233,15 +287,27 @@ return {
             "name": "userId",
             "storageKey": null
           },
-          (v3/*: any*/)
+          (v2/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "id": "8a75762b2e92a08aeb1007fc11f71298",
-    "metadata": {},
+    "id": "85b55396fb97187f9eeb6b8511ad5de7",
+    "metadata": {
+      "connection": [
+        {
+          "count": null,
+          "cursor": null,
+          "direction": "forward",
+          "path": [
+            "user",
+            "todos"
+          ]
+        }
+      ]
+    },
     "name": "TodoAppQuery",
     "operationKind": "query",
     "text": null
@@ -249,7 +315,7 @@ return {
 };
 })();
 
-(node/*: any*/).hash = "021cf002a0c5c39c772369311b469cec";
+(node/*: any*/).hash = "743e9c91a106f708cbe79c5cc65c934b";
 
 require('relay-runtime').PreloadableQueryRegistry.set((node.params/*: any*/).id, node);
 

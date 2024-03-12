@@ -9,7 +9,6 @@ const mutation = graphql`
     addTodo(input: $input) {
       todoEdge @appendEdge(connections: $connections) {
         node {
-          complete
           id
           text
         }
@@ -54,9 +53,10 @@ export function useAddTodoMutation(
           addTodo: {
             todoEdge: {
               node: {
+                // We omit data here present in fragments consumed by our connection. This flags the Todo.js fragment as
+                // missing data and prevents the record being cached in the useFragment hook https://github.com/facebook/relay/blob/a5a794743d6f6a0cded6d2ef3497acbba821f721/packages/react-relay/relay-hooks/legacy/FragmentResource.js#L378
                 id: 'client:newTodo:' + tempID++,
                 text,
-                complete: false,
               },
             },
             user: {
