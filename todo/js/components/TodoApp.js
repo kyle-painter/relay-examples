@@ -17,7 +17,8 @@ type Props = EntryPointProps<PreloadedQueries>;
 export default (function TodoApp({queries}: Props): React.Node {
   const {user} = usePreloadedQuery(
     graphql`
-      query TodoAppQuery($userId: String) @preloadable {
+      query TodoAppQuery($userId: String, $first: Int, $after: String)
+      @preloadable {
         user(id: $userId) @required(action: THROW) {
           ...TodoList_user
         }

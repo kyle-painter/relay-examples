@@ -8,19 +8,20 @@ import TodoListFooter from './TodoListFooter';
 import TodoTextInput from './TodoTextInput';
 
 import * as React from 'react';
-import {graphql, useFragment} from 'react-relay';
+import {graphql, useRefetchableFragment} from 'react-relay';
+import {useCallback, useState} from 'react';
 
 type Props = {|
   userRef: TodoList_user$key,
 |};
 
 export default function TodoList({userRef}: Props): React.Node {
-  const user = useFragment(
+  const [count, setCount] = useState(0);
+  const [user, refetch] = useRefetchableFragment(
     graphql`
-      fragment TodoList_user on User {
-        todos(
-          first: 2147483647 # max GraphQLInt
-        ) @connection(key: "TodoList_todos") {
+      fragment TodoList_user on User
+      @refetchable(queryName: "UserRefetchQuery") {
+        todos(first: $first, after: $after) @connection(key: "TodoList_todos") {
           __id
           edges {
             node {
@@ -42,6 +43,22 @@ export default function TodoList({userRef}: Props): React.Node {
     userRef,
   );
 
+  /*
+   * Relay only performs a temporary retain of refetch queries with a timeout period of 5 minutes. This means refetch
+   * onComplete callbacks can be inadvertently re-invoked after 5 minutes of inactivity. To reproduce:
+   * 1. Press the 'Refetch' button and observe the onComplete alert dialog is shown.
+   * 2. Wait 5 minutes.
+   * 3. Press the 'Rerender' button and observe the onComplete alert dialog is shown again.
+   */
+
+  const refetchAndAlert = useCallback(() => {
+    refetch({}, {onComplete: () => alert('REFETCH COMPLETED')});
+  }, [refetch]);
+
+  const rerender = useCallback(() => {
+    setCount((prev) => prev + 1);
+  }, []);
+
   const commitAddTodoMutation = useAddTodoMutation(user, user.todos.__id);
   const handleOnSave = (text: string) => commitAddTodoMutation(text);
 
@@ -58,6 +75,11 @@ export default function TodoList({userRef}: Props): React.Node {
     <>
       <header className="header">
         <h1>todos</h1>
+
+        <div className="action-buttons">
+          <button onClick={refetchAndAlert}>Refetch</button>
+          <button onClick={rerender}>Rerender (Count: {count})</button>
+        </div>
 
         <TodoTextInput
           className="new-todo"

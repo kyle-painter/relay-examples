@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<034129d86bd6ad50f15aed1303def6a4>>
+ * @generated SignedSource<<2712f4ced74b605520f4254c88fb3af5>>
  * @flow
  * @lightSyntaxTransform
  * @nogrep
@@ -10,7 +10,7 @@
 'use strict';
 
 /*::
-import type { Fragment, ReaderFragment } from 'relay-runtime';
+import type { ReaderFragment, RefetchableFragment } from 'relay-runtime';
 import type { AddTodoMutation_user$fragmentType } from "./AddTodoMutation_user.graphql";
 import type { MarkAllTodosMutation_todoEdge$fragmentType } from "./MarkAllTodosMutation_todoEdge.graphql";
 import type { MarkAllTodosMutation_user$fragmentType } from "./MarkAllTodosMutation_user.graphql";
@@ -20,8 +20,10 @@ import type { Todo_todo$fragmentType } from "./Todo_todo.graphql";
 import type { Todo_user$fragmentType } from "./Todo_user.graphql";
 import type { FragmentType } from "relay-runtime";
 declare export opaque type TodoList_user$fragmentType: FragmentType;
+import type { UserRefetchQuery$variables } from "./UserRefetchQuery.graphql";
 export type TodoList_user$data = {|
   +completedCount: number,
+  +id: string,
   +todos: ?{|
     +__id: string,
     +edges: ?$ReadOnlyArray<?{|
@@ -44,20 +46,53 @@ export type TodoList_user$key = {
 };
 */
 
-var node/*: ReaderFragment*/ = {
-  "argumentDefinitions": [],
+var node/*: ReaderFragment*/ = (function(){
+var v0 = [
+  "todos"
+],
+v1 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+};
+return {
+  "argumentDefinitions": [
+    {
+      "kind": "RootArgument",
+      "name": "after"
+    },
+    {
+      "kind": "RootArgument",
+      "name": "first"
+    }
+  ],
   "kind": "Fragment",
   "metadata": {
     "connection": [
       {
-        "count": null,
-        "cursor": null,
+        "count": "first",
+        "cursor": "after",
         "direction": "forward",
-        "path": [
-          "todos"
-        ]
+        "path": (v0/*: any*/)
       }
-    ]
+    ],
+    "refetch": {
+      "connection": {
+        "forward": {
+          "count": "first",
+          "cursor": "after"
+        },
+        "backward": null,
+        "path": (v0/*: any*/)
+      },
+      "fragmentPathInResult": [
+        "node"
+      ],
+      "operation": require('./UserRefetchQuery.graphql'),
+      "identifierField": "id"
+    }
   },
   "name": "TodoList_user",
   "selections": [
@@ -85,13 +120,7 @@ var node/*: ReaderFragment*/ = {
               "name": "node",
               "plural": false,
               "selections": [
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "id",
-                  "storageKey": null
-                },
+                (v1/*: any*/),
                 {
                   "args": null,
                   "kind": "FragmentSpread",
@@ -200,15 +229,18 @@ var node/*: ReaderFragment*/ = {
       "args": null,
       "kind": "FragmentSpread",
       "name": "TodoListFooter_user"
-    }
+    },
+    (v1/*: any*/)
   ],
   "type": "User",
   "abstractKey": null
 };
+})();
 
-(node/*: any*/).hash = "c83e0fccfae7ee28c5b4994bd7caae65";
+(node/*: any*/).hash = "213f6b51b3e7abb11573df65744fe7d3";
 
-module.exports = ((node/*: any*/)/*: Fragment<
+module.exports = ((node/*: any*/)/*: RefetchableFragment<
   TodoList_user$fragmentType,
   TodoList_user$data,
+  UserRefetchQuery$variables,
 >*/);

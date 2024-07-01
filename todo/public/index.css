@@ -115,6 +115,21 @@ label[for='toggle-all'] {
   display: none;
 }
 
+.action-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.action-buttons button {
+  background-color: #cce6ff;
+  cursor: pointer;
+  font-weight: bold;
+  padding: 8px;
+}
+.action-buttons button:hover {
+  background-color: #a4cdf6;
+}
+
 .toggle-all {
   position: absolute;
   top: -55px;

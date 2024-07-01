@@ -1,6 +1,6 @@
 /**
- * @generated SignedSource<<1eb563a36ecae92cf484e8b1db6af4df>>
- * @relayHash 8a75762b2e92a08aeb1007fc11f71298
+ * @generated SignedSource<<49faa5df341c8c67a9ae12a55ab097ee>>
+ * @relayHash ec2a39c7c2f03e8045a3cc51badd6c0f
  * @flow
  * @lightSyntaxTransform
  * @nogrep
@@ -10,12 +10,14 @@
 
 'use strict';
 
-// @relayRequestID 8a75762b2e92a08aeb1007fc11f71298
+// @relayRequestID ec2a39c7c2f03e8045a3cc51badd6c0f
 
 /*::
 import type { ConcreteRequest, Query } from 'relay-runtime';
 import type { TodoList_user$fragmentType } from "./TodoList_user.graphql";
 export type TodoAppQuery$variables = {|
+  after?: ?string,
+  first?: ?number,
   userId?: ?string,
 |};
 export type TodoAppQuery$data = {|
@@ -30,28 +32,41 @@ export type TodoAppQuery = {|
 */
 
 var node/*: ConcreteRequest*/ = (function(){
-var v0 = [
-  {
-    "defaultValue": null,
-    "kind": "LocalArgument",
-    "name": "userId"
-  }
-],
-v1 = [
+var v0 = {
+  "defaultValue": null,
+  "kind": "LocalArgument",
+  "name": "after"
+},
+v1 = {
+  "defaultValue": null,
+  "kind": "LocalArgument",
+  "name": "first"
+},
+v2 = {
+  "defaultValue": null,
+  "kind": "LocalArgument",
+  "name": "userId"
+},
+v3 = [
   {
     "kind": "Variable",
     "name": "id",
     "variableName": "userId"
   }
 ],
-v2 = [
+v4 = [
   {
-    "kind": "Literal",
+    "kind": "Variable",
+    "name": "after",
+    "variableName": "after"
+  },
+  {
+    "kind": "Variable",
     "name": "first",
-    "value": 2147483647
+    "variableName": "first"
   }
 ],
-v3 = {
+v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -60,7 +75,11 @@ v3 = {
 };
 return {
   "fragment": {
-    "argumentDefinitions": (v0/*: any*/),
+    "argumentDefinitions": [
+      (v0/*: any*/),
+      (v1/*: any*/),
+      (v2/*: any*/)
+    ],
     "kind": "Fragment",
     "metadata": null,
     "name": "TodoAppQuery",
@@ -69,7 +88,7 @@ return {
         "kind": "RequiredField",
         "field": {
           "alias": null,
-          "args": (v1/*: any*/),
+          "args": (v3/*: any*/),
           "concreteType": "User",
           "kind": "LinkedField",
           "name": "user",
@@ -92,13 +111,17 @@ return {
   },
   "kind": "Request",
   "operation": {
-    "argumentDefinitions": (v0/*: any*/),
+    "argumentDefinitions": [
+      (v2/*: any*/),
+      (v1/*: any*/),
+      (v0/*: any*/)
+    ],
     "kind": "Operation",
     "name": "TodoAppQuery",
     "selections": [
       {
         "alias": null,
-        "args": (v1/*: any*/),
+        "args": (v3/*: any*/),
         "concreteType": "User",
         "kind": "LinkedField",
         "name": "user",
@@ -106,7 +129,7 @@ return {
         "selections": [
           {
             "alias": null,
-            "args": (v2/*: any*/),
+            "args": (v4/*: any*/),
             "concreteType": "TodoConnection",
             "kind": "LinkedField",
             "name": "todos",
@@ -128,7 +151,7 @@ return {
                     "name": "node",
                     "plural": false,
                     "selections": [
-                      (v3/*: any*/),
+                      (v5/*: any*/),
                       {
                         "alias": null,
                         "args": null,
@@ -201,11 +224,11 @@ return {
                 "storageKey": null
               }
             ],
-            "storageKey": "todos(first:2147483647)"
+            "storageKey": null
           },
           {
             "alias": null,
-            "args": (v2/*: any*/),
+            "args": (v4/*: any*/),
             "filters": null,
             "handle": "connection",
             "key": "TodoList_todos",
@@ -233,14 +256,14 @@ return {
             "name": "userId",
             "storageKey": null
           },
-          (v3/*: any*/)
+          (v5/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "id": "8a75762b2e92a08aeb1007fc11f71298",
+    "id": "ec2a39c7c2f03e8045a3cc51badd6c0f",
     "metadata": {},
     "name": "TodoAppQuery",
     "operationKind": "query",
@@ -249,7 +272,7 @@ return {
 };
 })();
 
-(node/*: any*/).hash = "021cf002a0c5c39c772369311b469cec";
+(node/*: any*/).hash = "634e8c73ee415ecdc8e69e07025e1bdb";
 
 require('relay-runtime').PreloadableQueryRegistry.set((node.params/*: any*/).id, node);
 
